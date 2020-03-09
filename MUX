@@ -1,0 +1,25 @@
+library IEEE;
+     use IEEE.STD_LOGIC_1164.all;
+
+     ENTITY mux IS
+        PORT(a      : IN std_logic_vector(3 DOWNTO 0); 
+             b      : IN std_logic_vector(3 DOWNTO 0); 
+             c      : IN std_logic_vector(3 DOWNTO 0); 
+             sel    : IN std_logic_vector(1 DOWNTO 0); 
+             salida : OUT std_logic_vector(3 DOWNTO 0));
+     END mux;
+
+     ARCHITECTURE synth OF mux IS
+     BEGIN
+
+       PROCESS (sel, a, b, c) IS
+       BEGIN
+         CASE sel IS
+           WHEN "00" => salida <= (others => '0');
+           WHEN "01" => salida <= a;
+           WHEN "10" => salida <= b;
+           WHEN "11" => salida <= c;
+           WHEN OTHERS => salida <= (others => '0');
+         END CASE;
+       END PROCESS;
+     END synth;
