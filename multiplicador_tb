@@ -1,0 +1,70 @@
+--library
+library IEEE;
+   use IEEE.std_logic_1164.all;
+   use IEEE.std_logic_textio.all;
+   use IEEE.std_logic_unsigned.all;
+
+--entity
+entity multy is
+  port (x: in std_logic_vector(3 downto 0);
+        y: in std_logic_vector(3 downto 0);
+        p : out std_logic_vector(7 downto 0)
+        );
+end multy ;
+
+-- architecture
+architecture rtl of multy is
+component Ripple_Adder
+  Port ( A : in std_logic_vector (3 downto 0);
+     B : in std_logic_vector (3 downto 0);
+     Cin : in std_logic;
+     S : out std_logic_vector (3 downto 0);
+     Cout : out std_logic);
+end component ;
+
+signal andgate: std_logic_vector(15 downto 0);
+signal sumout: std_logic_vector( 11 downto 0);
+signal carry: std_logic_vector(11 downto 0);
+
+
+begin
+    andgate(0) <= x(0) and y(0);
+    andgate(1) <= x(1) and y(0); --b0
+    andgate(2) <= x(2) and y(0); --b1
+    andgate(3) <= x(3) and y(0); --b2
+B
+
+    andgate(4) <= x(0) and y(1);
+    andgate(5) <= x(1) and y(1);
+    andgate(6) <= x(2) and y(1);
+    andgate(7) <= x(3) and y(1);
+
+    andgate(8) <= x(0) and y(2);
+    andgate(9) <= x(1) and y(2);
+    andgate(10) <= x(2) and y(2);
+    andgate(11) <= x(3) and y(2);
+
+    andgate(12) <= x(0) and y(3);
+    andgate(13) <= x(1) and y(3);
+    andgate(14) <= x(2) and y(3);
+    andgate(15) <= x(3) and y(3);
+
+--gates
+
+
+cell_1: Ripple_Adder port map();
+cell_2: Ripple_Adder port map();
+cell_3: Ripple_Adder port map();
+
+
+ --Assigning p values
+    p(0) <= andgate(0);
+    p(1) <= sumout(0);
+    p(2) <= sumout(4);
+    p(3) <= sumout(8);
+    p(4) <= sumout(9);
+    p(5) <= sumout(10);
+    p(6) <= sumout(11);
+    p(7) <= carry(11);
+
+end rtl ;  
